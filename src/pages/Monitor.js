@@ -6,7 +6,7 @@ const MonitorContainer = styled.div`
   background-color: lightgray;
 `;
 
-const data = [1, 2, 3, 4, 5, 6];
+// const data = [1, 2, 3, 4, 5, 6];
 
 function Monitor() {
   return <MonitorContainer></MonitorContainer>;
