@@ -12,7 +12,7 @@ const Title = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 11px;
+  font-size: 16px;
   font-weight: 600;
   color: lightgray;
 `;
@@ -20,7 +20,7 @@ const LinkBox = styled.div`
   padding-left: 20px;
   div {
     margin-bottom: 20px;
-    font-size: 10.7px;
+    font-size: 14px;
     font-weight: 500;
     color: lightgray;
   }

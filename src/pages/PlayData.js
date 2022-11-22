@@ -3,20 +3,27 @@ import styled from "styled-components";
 
 const PlayDataContainer = styled.div`
   width: 100%;
-  padding: 50px 50px;
+  height: 100%;
+  padding: 50px 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
   background-color: lightgray;
 `;
 const TableHeaderBox = styled.div`
-  width: 100%;
+  width: 900px;
 
   display: flex;
   justify-content: space-around;
   div {
-    width: 130px;
+    width: 100px;
+    padding: 10px 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px 20px;
+    font-size: 14px;
     color: whitesmoke;
     background-color: black;
   }
@@ -39,7 +46,7 @@ function PlayData() {
         <div>디바이스 타입</div>
         <div>플레이 타임(초)</div>
         <div>등록 일자</div>
-        <div>심박수 그래프 보기</div>
+        <div>심박수그래프</div>
       </TableHeaderBox>
       {data.map((d, idx) => (
         <TableContentBox key={idx}>
