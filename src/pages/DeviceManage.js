@@ -46,7 +46,7 @@ const OnOffSignal = styled.div`
   align-self: flex-end;
   margin-top: -10px;
   margin-right: 5px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 `;
 const InfoUint = styled.div`
   width: 270px;
@@ -76,27 +76,56 @@ const InfoUint = styled.div`
   }
 `;
 
-const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+const data = [
+  {
+    id: "1",
+    login_id: "testlogin01",
+    device_id: "deviceid0000000000",
+    device_type: "occulus",
+    regdate: "2022-10-17 23:43:37",
+  },
+  {
+    id: "2",
+    login_id: "testlogin01",
+    device_id: "deviceid0000000000",
+    device_type: "occulus",
+    regdate: "2022-10-18 00:35:23",
+  },
+  {
+    id: "3",
+    login_id: "testlogin01",
+    device_id: "deviceid0000000000",
+    device_type: "occulus",
+    regdate: "2022-10-19 16:55:40",
+  },
+  {
+    id: "4",
+    login_id: "testlogin01",
+    device_id: "deviceid0000000000",
+    device_type: "occulus",
+    regdate: "2022-10-19 17:16:17",
+  },
+];
 
 function DeviceManage() {
   return (
     <DeviceContainer>
-      {data.map((device, idx) => (
+      {data.map((d, idx) => (
         <DeviceBox key={idx}>
-          <DeviceLogo>{device}</DeviceLogo>
+          <DeviceLogo>{idx}</DeviceLogo>
           <DeviceInfo>
             <OnOffSignal>OFF LINE 🟢</OnOffSignal>
             <InfoUint>
               <div>ID</div>
-              <div>AAAAAAA</div>
+              <div>{d.device_id}</div>
             </InfoUint>
             <InfoUint>
               <div>TYPE</div>
-              <div>AAAAAAA</div>
+              <div>{d.device_type}</div>
             </InfoUint>
             <InfoUint>
               <div>PLACE</div>
-              <div>AAAAAAA</div>
+              <div>{d.device_loc ? d.device_loc : "실험실"}</div>
             </InfoUint>
           </DeviceInfo>
         </DeviceBox>

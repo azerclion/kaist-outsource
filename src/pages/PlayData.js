@@ -29,13 +29,43 @@ const TableHeaderBox = styled.div`
   }
 `;
 const TableContentBox = styled(TableHeaderBox)`
+  border-bottom: 1px solid darkgray;
   div {
     color: black;
     background-color: lightgray;
   }
 `;
 
-const data = [1, 2, 3, 4, 5, 6];
+const data = [
+  {
+    id: "1",
+    login_id: "testlogin01",
+    device_id: "deviceid0000000000",
+    device_type: "occulus",
+    regdate: "2022-10-17 23:43:37",
+  },
+  {
+    id: "2",
+    login_id: "testlogin01",
+    device_id: "deviceid0000000000",
+    device_type: "occulus",
+    regdate: "2022-10-18 00:35:23",
+  },
+  {
+    id: "3",
+    login_id: "testlogin01",
+    device_id: "deviceid0000000000",
+    device_type: "occulus",
+    regdate: "2022-10-19 16:55:40",
+  },
+  {
+    id: "4",
+    login_id: "testlogin01",
+    device_id: "deviceid0000000000",
+    device_type: "occulus",
+    regdate: "2022-10-19 17:16:17",
+  },
+];
 
 function PlayData() {
   return (
@@ -50,12 +80,14 @@ function PlayData() {
       </TableHeaderBox>
       {data.map((d, idx) => (
         <TableContentBox key={idx}>
-          <div>{d}</div>
-          <div>{d}</div>
-          <div>{d}</div>
-          <div>{d}</div>
-          <div>{d}</div>
-          <div>{d}</div>
+          <div>{d.login_id}</div>
+          <div>{d.device_id}</div>
+          <div>{d.device_type}</div>
+          <div>{"30"}</div>
+          <div>{d.regdate}</div>
+          <div>
+            <button>그래프보기 ▷</button>
+          </div>
         </TableContentBox>
       ))}
     </PlayDataContainer>

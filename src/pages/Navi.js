@@ -3,9 +3,10 @@ import styled from "styled-components";
 
 const NaviContainer = styled.div`
   width: 300px;
-  height: 2000px;
+  height: 100vh;
   padding-top: 40px;
   background-color: black;
+  z-index: 10;
 `;
 const Title = styled.div`
   margin-bottom: 40px;

@@ -10,6 +10,7 @@ import PlayData from "./pages/PlayData";
 const LayoutContainer = styled.div`
   display: flex;
   flex-direction: row;
+  flex-wrap: nowrap;
 `;
 
 function Router() {
