@@ -25,7 +25,6 @@ const MonitorBoxContainer = styled.div`
   align-items: flex-start;
   flex-wrap: wrap;
 `;
-const ModalWarning = styled.div``;
 
 function Monitor() {
   return (
@@ -37,7 +36,6 @@ function Monitor() {
         <MonitorBox img={Moni} deviceID={"device-id 00000023"}></MonitorBox>
         <MonitorBox img={Moni} deviceID={"device-id 00000023"}></MonitorBox>
         <MonitorBox img={Moni} deviceID={"device-id 00000023"}></MonitorBox>
-        <ModalWarning></ModalWarning>
       </MonitorBoxContainer>
     </MonitorContainer>
   );
