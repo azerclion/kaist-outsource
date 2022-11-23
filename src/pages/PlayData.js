@@ -53,10 +53,13 @@ function PlayData() {
         if (!ignore) {
           setData(result?.data);
           setIsLoading(false);
-          console.log("result :", result.data);
+          console.log("result :", result);
         }
       }
       axiosFetch();
+      setInterval(() => {
+        axiosFetch();
+      }, 5000);
     } catch (err) {
       if (!ignore) {
         console.log(err.message);

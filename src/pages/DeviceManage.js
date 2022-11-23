@@ -104,6 +104,9 @@ function DeviceManage() {
         }
       }
       axiosFetch();
+      setInterval(() => {
+        axiosFetch();
+      }, 5000);
     } catch (err) {
       if (!ignore) {
         console.log(err.message);
