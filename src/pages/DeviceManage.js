@@ -1,21 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import styled from "styled-components";
 
 const DeviceContainer = styled.div`
   width: 100%;
   height: 100%;
-  padding: 50px 0px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+`;
+const BoxContainer = styled.div`
+  width: 900px;
+  margin-top: 50px;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-start;
   flex-wrap: wrap;
-  background-color: lightgray;
 `;
 const DeviceBox = styled.div`
   width: 400px;
   height: 200px;
-  margin: 20px 40px;
+  margin: 20px;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -76,60 +84,63 @@ const InfoUint = styled.div`
   }
 `;
 
-const data = [
-  {
-    id: "1",
-    login_id: "testlogin01",
-    device_id: "deviceid0000000000",
-    device_type: "occulus",
-    regdate: "2022-10-17 23:43:37",
-  },
-  {
-    id: "2",
-    login_id: "testlogin01",
-    device_id: "deviceid0000000000",
-    device_type: "occulus",
-    regdate: "2022-10-18 00:35:23",
-  },
-  {
-    id: "3",
-    login_id: "testlogin01",
-    device_id: "deviceid0000000000",
-    device_type: "occulus",
-    regdate: "2022-10-19 16:55:40",
-  },
-  {
-    id: "4",
-    login_id: "testlogin01",
-    device_id: "deviceid0000000000",
-    device_type: "occulus",
-    regdate: "2022-10-19 17:16:17",
-  },
-];
-
 function DeviceManage() {
+  const [data, setData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    let ignore = false;
+    try {
+      setIsLoading(true);
+      function getApiUrl() {
+        return `http://222.239.255.38:8083/kaisthealth/get_device_status.php`;
+      }
+      async function axiosFetch() {
+        const result = await axios(getApiUrl());
+        if (!ignore) {
+          setData(result?.data);
+          setIsLoading(false);
+          console.log("result :", result.data);
+        }
+      }
+      axiosFetch();
+    } catch (err) {
+      if (!ignore) {
+        console.log(err.message);
+        console.log(isLoading);
+      }
+    }
+    return () => {
+      ignore = true;
+    };
+    // eslint-disable-next-line
+  }, []);
   return (
     <DeviceContainer>
-      {data.map((d, idx) => (
-        <DeviceBox key={idx}>
-          <DeviceLogo>{idx}</DeviceLogo>
-          <DeviceInfo>
-            <OnOffSignal>OFF LINE 🟢</OnOffSignal>
-            <InfoUint>
-              <div>ID</div>
-              <div>{d.device_id}</div>
-            </InfoUint>
-            <InfoUint>
-              <div>TYPE</div>
-              <div>{d.device_type}</div>
-            </InfoUint>
-            <InfoUint>
-              <div>PLACE</div>
-              <div>{d.device_loc ? d.device_loc : "실험실"}</div>
-            </InfoUint>
-          </DeviceInfo>
-        </DeviceBox>
-      ))}
+      <BoxContainer>
+        {Array.isArray(data)
+          ? data.map((d, idx) => (
+              <DeviceBox key={idx}>
+                <DeviceLogo>{idx}</DeviceLogo>
+                <DeviceInfo>
+                  <OnOffSignal>OFF LINE 🟢</OnOffSignal>
+                  <InfoUint>
+                    <div>ID</div>
+                    <div>{d.devide_id}</div>
+                  </InfoUint>
+                  <InfoUint>
+                    <div>TYPE</div>
+                    <div>{d.device_type}</div>
+                  </InfoUint>
+                  <InfoUint>
+                    <div>PLACE</div>
+                    <div>{d.device_loc ? d.device_loc : "실험실"}</div>
+                  </InfoUint>
+                </DeviceInfo>
+              </DeviceBox>
+            ))
+          : null}
+      </BoxContainer>
     </DeviceContainer>
   );
 }

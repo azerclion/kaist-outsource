@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import styled from "styled-components";
 
 const PlayDataContainer = styled.div`
@@ -6,9 +7,9 @@ const PlayDataContainer = styled.div`
   height: 100%;
   padding: 50px 0px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   flex-wrap: wrap;
   background-color: lightgray;
 `;
@@ -36,38 +37,37 @@ const TableContentBox = styled(TableHeaderBox)`
   }
 `;
 
-const data = [
-  {
-    id: "1",
-    login_id: "testlogin01",
-    device_id: "deviceid0000000000",
-    device_type: "occulus",
-    regdate: "2022-10-17 23:43:37",
-  },
-  {
-    id: "2",
-    login_id: "testlogin01",
-    device_id: "deviceid0000000000",
-    device_type: "occulus",
-    regdate: "2022-10-18 00:35:23",
-  },
-  {
-    id: "3",
-    login_id: "testlogin01",
-    device_id: "deviceid0000000000",
-    device_type: "occulus",
-    regdate: "2022-10-19 16:55:40",
-  },
-  {
-    id: "4",
-    login_id: "testlogin01",
-    device_id: "deviceid0000000000",
-    device_type: "occulus",
-    regdate: "2022-10-19 17:16:17",
-  },
-];
-
 function PlayData() {
+  const [data, setData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    let ignore = false;
+    try {
+      setIsLoading(true);
+      function getApiUrl() {
+        return `http://222.239.255.38:8083/kaisthealth/get_playinfo.php`;
+      }
+      async function axiosFetch() {
+        const result = await axios(getApiUrl());
+        if (!ignore) {
+          setData(result?.data);
+          setIsLoading(false);
+          console.log("result :", result.data);
+        }
+      }
+      axiosFetch();
+    } catch (err) {
+      if (!ignore) {
+        console.log(err.message);
+        console.log(isLoading);
+      }
+    }
+    return () => {
+      ignore = true;
+    };
+    // eslint-disable-next-line
+  }, []);
   return (
     <PlayDataContainer>
       <TableHeaderBox>
@@ -78,18 +78,20 @@ function PlayData() {
         <div>등록 일자</div>
         <div>심박수그래프</div>
       </TableHeaderBox>
-      {data.map((d, idx) => (
-        <TableContentBox key={idx}>
-          <div>{d.login_id}</div>
-          <div>{d.device_id}</div>
-          <div>{d.device_type}</div>
-          <div>{"30"}</div>
-          <div>{d.regdate}</div>
-          <div>
-            <button>그래프보기 ▷</button>
-          </div>
-        </TableContentBox>
-      ))}
+      {Array.isArray(data)
+        ? data.map((d, idx) => (
+            <TableContentBox key={idx}>
+              <div>{d.login_id}</div>
+              <div>{d.device_id}</div>
+              <div>{d.device_type}</div>
+              <div>{"30"}</div>
+              <div>{d.regdate}</div>
+              <div>
+                <button>그래프보기 ▷</button>
+              </div>
+            </TableContentBox>
+          ))
+        : null}
     </PlayDataContainer>
   );
 }
