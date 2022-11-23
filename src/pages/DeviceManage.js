@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
 
+import purple from "../assets/images/profile_Purple.png";
+
 const DeviceContainer = styled.div`
   width: 100%;
   height: 100%;
@@ -39,6 +41,8 @@ const DeviceLogo = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 45px;
+  background-image: url(${(props) => props.img});
+  background-size: cover;
   background-color: hotpink;
 `;
 const DeviceInfo = styled.div`
@@ -83,6 +87,15 @@ const InfoUint = styled.div`
     background-color: black;
   }
 `;
+const ModalWarning = styled.div`
+  width: 300px;
+  height: 200px;
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  border-radius: 10px;
+  background-color: whitesmoke;
+`;
 
 function DeviceManage() {
   const [data, setData] = useState(null);
@@ -124,7 +137,7 @@ function DeviceManage() {
         {Array.isArray(data)
           ? data.map((d, idx) => (
               <DeviceBox key={idx}>
-                <DeviceLogo>{idx}</DeviceLogo>
+                <DeviceLogo img={purple}>{idx}</DeviceLogo>
                 <DeviceInfo>
                   <OnOffSignal>OFF LINE 🟢</OnOffSignal>
                   <InfoUint>
@@ -144,6 +157,12 @@ function DeviceManage() {
             ))
           : null}
       </BoxContainer>
+      <ModalWarning>
+        <div></div>
+        <div>warnig modal</div>
+        <div></div>
+        <div></div>
+      </ModalWarning>
     </DeviceContainer>
   );
 }
