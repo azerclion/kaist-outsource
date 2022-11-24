@@ -37,6 +37,7 @@ function Monitor() {
       setIsLoading(true);
       function getApiUrl() {
         return `http://222.239.255.38:8083/kaisthealth/get_device_status.php`;
+        // return `http://localhost:8081/kaisthealth/get_device_status.php`;
       }
       async function axiosFetch() {
         const result = await axios(getApiUrl());
