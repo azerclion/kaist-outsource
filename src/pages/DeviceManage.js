@@ -88,19 +88,55 @@ const InfoUint = styled.div`
   }
 `;
 const ModalWarning = styled.div`
-  display: none;
   width: 300px;
   height: 200px;
+  display: ${(props) => props.confirm};
   position: fixed;
   bottom: 40px;
   right: 40px;
   border-radius: 10px;
   background-color: whitesmoke;
 `;
+const SubModal = styled.div`
+  width: 300px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  div {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  div:nth-child(1) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  div:nth-child(2) {
+    width: 150px;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: 600;
+    color: whitesmoke;
+    background-color: black;
+  }
+  div:nth-child(3) {
+  }
+  div:nth-child(4) {
+    width: 300px;
+    font-size: 20px;
+    background-color: darkgray;
+  }
+`;
 
 function DeviceManage() {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [modal, setModal] = useState(true);
 
   useEffect(() => {
     let ignore = false;
@@ -138,33 +174,62 @@ function DeviceManage() {
       <BoxContainer>
         {Array.isArray(data)
           ? data.map((d, idx) => (
-              <DeviceBox key={idx}>
-                <DeviceLogo img={purple}>{idx}</DeviceLogo>
-                <DeviceInfo>
-                  <OnOffSignal>ONLINE 🟢</OnOffSignal>
-                  <InfoUint>
-                    <div>ID</div>
+              <div key={idx}>
+                <DeviceBox>
+                  <DeviceLogo img={purple}>{idx}</DeviceLogo>
+                  <DeviceInfo>
+                    <OnOffSignal>ONLINE 🟢</OnOffSignal>
+                    <InfoUint>
+                      <div>ID</div>
+                      <div>{d.devide_id}</div>
+                    </InfoUint>
+                    <InfoUint>
+                      <div>TYPE</div>
+                      <div>{d.device_type}</div>
+                    </InfoUint>
+                    <InfoUint>
+                      <div>PLACE</div>
+                      <div>{d.device_loc ? d.device_loc : "실험실"}</div>
+                    </InfoUint>
+                  </DeviceInfo>
+                </DeviceBox>
+                {d.alram_rs_support === "1" ||
+                d.alram_zoom === "1" ||
+                d.device_alram === "1"
+                  ? setModal(true)
+                  : null}
+                <ModalWarning
+                  display={
+                    d.alram_rs_support === "1"
+                      ? "block"
+                      : d.alram_zoom === "1"
+                      ? "block"
+                      : d.device_alram === "1"
+                      ? "block"
+                      : "block"
+                  }
+                  confirm={modal ? "block" : "none"}
+                >
+                  <SubModal>
+                    <div>
+                      <div style={{ marginLeft: "-100px" }}>🚨</div>
+                      <div></div>
+                    </div>
+                    <div>비상호출</div>
                     <div>{d.devide_id}</div>
-                  </InfoUint>
-                  <InfoUint>
-                    <div>TYPE</div>
-                    <div>{d.device_type}</div>
-                  </InfoUint>
-                  <InfoUint>
-                    <div>PLACE</div>
-                    <div>{d.device_loc ? d.device_loc : "실험실"}</div>
-                  </InfoUint>
-                </DeviceInfo>
-              </DeviceBox>
+                    <div
+                      onClick={() => {
+                        setModal(false);
+                      }}
+                    >
+                      확 인
+                    </div>
+                  </SubModal>
+                </ModalWarning>
+              </div>
             ))
           : null}
       </BoxContainer>
-      <ModalWarning>
-        <div></div>
-        <div>warnig modal</div>
-        <div></div>
-        <div></div>
-      </ModalWarning>
     </DeviceContainer>
   );
 }
