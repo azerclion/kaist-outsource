@@ -88,6 +88,7 @@ const InfoUint = styled.div`
   }
 `;
 const ModalWarning = styled.div`
+  display: none;
   width: 300px;
   height: 200px;
   position: fixed;
@@ -107,6 +108,7 @@ function DeviceManage() {
       setIsLoading(true);
       function getApiUrl() {
         return `http://222.239.255.38:8083/kaisthealth/get_device_status.php`;
+        // return `http://localhost:8081/kaisthealth/get_device_status.php`;
       }
       async function axiosFetch() {
         const result = await axios(getApiUrl());
