@@ -20,7 +20,7 @@ const TextBox = styled.div`
   position: absolute;
   bottom: 0;
   left: 0;
-  display: flex;
+  display: ${(props) => props.display};
   justify-content: center;
   align-items: center;
   border-radius: 0px 0px 10px 10px;
@@ -28,11 +28,11 @@ const TextBox = styled.div`
   background-color: gray;
 `;
 
-function MonitorBox({ img, deviceID }) {
+function MonitorBox({ img, deviceID, display }) {
   return (
     <BoxContainer>
       <ImgBox img={img}></ImgBox>
-      <TextBox>{deviceID}</TextBox>
+      <TextBox display={display}>{deviceID}</TextBox>
     </BoxContainer>
   );
 }

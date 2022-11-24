@@ -141,7 +141,7 @@ function DeviceManage() {
               <DeviceBox key={idx}>
                 <DeviceLogo img={purple}>{idx}</DeviceLogo>
                 <DeviceInfo>
-                  <OnOffSignal>OFF LINE 🟢</OnOffSignal>
+                  <OnOffSignal>ONLINE 🟢</OnOffSignal>
                   <InfoUint>
                     <div>ID</div>
                     <div>{d.devide_id}</div>

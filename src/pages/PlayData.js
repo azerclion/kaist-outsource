@@ -91,7 +91,16 @@ function PlayData() {
               <div>{"30"}</div>
               <div>{d.regdate}</div>
               <div>
-                <button>그래프보기 ▷</button>
+                <button>
+                  <a
+                    href="http://localhost:8081/kaisthealth/line_graph.html"
+                    target="_blank"
+                    without
+                    rel="noreferrer"
+                  >
+                    그래프보기 ▷
+                  </a>
+                </button>
               </div>
             </TableContentBox>
           ))
