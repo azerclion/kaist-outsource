@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const PlayDataContainer = styled.div`
   width: 100%;
@@ -91,16 +92,9 @@ function PlayData() {
               <div>{"30"}</div>
               <div>{d.regdate}</div>
               <div>
-                <button>
-                  <a
-                    href="http://localhost:8081/kaisthealth/line_graph.html"
-                    target="_blank"
-                    without
-                    rel="noreferrer"
-                  >
-                    그래프보기 ▷
-                  </a>
-                </button>
+                <Link to={`/graph/${idx}`} relative="path">
+                  <div> 그래프 보기 ▷ </div>
+                </Link>
               </div>
             </TableContentBox>
           ))

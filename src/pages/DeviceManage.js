@@ -193,23 +193,7 @@ function DeviceManage() {
                     </InfoUint>
                   </DeviceInfo>
                 </DeviceBox>
-                {d.alram_rs_support === "1" ||
-                d.alram_zoom === "1" ||
-                d.device_alram === "1"
-                  ? setModal(true)
-                  : null}
-                <ModalWarning
-                  display={
-                    d.alram_rs_support === "1"
-                      ? "block"
-                      : d.alram_zoom === "1"
-                      ? "block"
-                      : d.device_alram === "1"
-                      ? "block"
-                      : "block"
-                  }
-                  confirm={modal ? "block" : "none"}
-                >
+                <ModalWarning confirm={modal ? "block" : "none"}>
                   <SubModal>
                     <div>
                       <div style={{ marginLeft: "-100px" }}>🚨</div>
